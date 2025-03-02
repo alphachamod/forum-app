@@ -1,0 +1,17 @@
+# Creates the profile page
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>User Profile</h1>
+    <h2>Username: {{ user.username }}</h2>
+    {% if user.email %}
+        <p>Email: {{ user.email }}</p>
+    {% endif %}
+    <p>Role: {{ user.role }}</p>
+
+    {% if session['username'] == user.username %}
+        <a href="{{ url_for('user.edit_profile') }}">Edit Profile</a>
+    {% endif %}
+    <a href="{{ url_for('forum.forum') }}">Return to Forum</a>
+
+{% endblock %}

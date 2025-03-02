@@ -1,16 +1,33 @@
-# This is a sample Python script.
+import os
+from flask import Flask
+from config import Config
+from models import db  # Import the db object
+from views.auth import auth_bp  # Import auth blueprint
+from views.forum import forum_bp  # Import forum blueprint
+from views.user import user_bp
 
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
+# Create app
+app = Flask(__name__)
+app.config.from_object(Config)
+
+# Init Database to app
+db.init_app(app)
+
+# This creates the database tables
+with app.app_context():
+    db.create_all()
+
+app.register_blueprint(auth_bp)  # Register auth blueprint
+app.register_blueprint(forum_bp)  # Register forum blueprint
+app.register_blueprint(user_bp)  # Register the blueprint
 
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
+# Register Route for Forum
+
+@app.route('/')
+def home():
+    return 'home'
 
 
-# Press the green button in the gutter to run the script.
 if __name__ == '__main__':
-    print_hi('PyCharm')
-
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+    app.run(debug=True)

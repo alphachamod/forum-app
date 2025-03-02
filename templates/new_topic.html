@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Create a New Topic</h1>
+    <form method="post">
+        <label for="title">Title:</label><br>
+        <input type="text" id="title" name="title"><br><br>
+        <input type="submit" value="Create Topic">
+    </form>
+{% endblock %}

@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>{{ topic.title }}</h1>
+
+    {% for post in posts %}
+        <div class="post">
+            <p>User: {{ post.user.username }}</p>
+            <p>{{ post.content }}</p>  {# Insecure: Vulnerable to XSS! #}
+            <small>Created at: {{ post.created_at }}</small>
+        </div>
+    {% endfor %}
+
+    <a href="{{ url_for('forum.new_post', topic_id=topic.id) }}">Reply</a>
+{% endblock %}
